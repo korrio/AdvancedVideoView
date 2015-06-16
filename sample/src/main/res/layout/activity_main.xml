@@ -1,9 +1,8 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoActivity">
+    android:background="@android:color/black" >
 
     <com.jit.video.FullScreenVideoView
         android:id="@+id/videoview"
@@ -28,17 +27,9 @@
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="ไม่ยากเกินไป"
+                android:text="视频播放"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -95,8 +86,8 @@
             android:minHeight="10dip"
             android:progress="0"
             android:thumbOffset="0dp" />
-        <!--  android:progressDrawable="@drawable/seekbar"
-           android:thumb="@drawable/line_point" -->
+         <!--  android:progressDrawable="@drawable/seekbar"
+            android:thumb="@drawable/line_point" -->
     </RelativeLayout>
 
 </RelativeLayout>
