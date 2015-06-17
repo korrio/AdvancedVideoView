@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class AdvancedVideoActivity extends Activity implements OnClickListener {
 
 	// 自定义VideoView
 	private FullScreenVideoView mVideo;

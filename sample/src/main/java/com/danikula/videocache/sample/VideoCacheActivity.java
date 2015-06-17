@@ -37,7 +37,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class VideoActivity extends Activity implements CacheListener,View.OnClickListener {
+public class VideoCacheActivity extends Activity implements CacheListener,View.OnClickListener {
 
     private static final String LOG_TAG = "VideoActivity";
     private static final String VIDEO_CACHE_NAME = "X4gPz_110559_60765d771b815d6faadf2f978fb8fcfe_ori.mp4";

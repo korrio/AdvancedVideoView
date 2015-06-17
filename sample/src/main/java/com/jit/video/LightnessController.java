@@ -17,7 +17,7 @@ public class LightnessController {
 			automicBrightness = Settings.System.getInt(aContentResolver,
 					Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
 		} catch (Exception e) {
-			Toast.makeText(act, "无法获取亮度", Toast.LENGTH_SHORT).show();
+			Toast.makeText(act, "Error auto lightness", Toast.LENGTH_SHORT).show();
 		}
 		return automicBrightness;
 	}
@@ -30,7 +30,7 @@ public class LightnessController {
 			lp.screenBrightness = (value <= 0 ? 1 : value) / 255f;
 			act.getWindow().setAttributes(lp);
 		} catch (Exception e) {
-			Toast.makeText(act, "无法改变亮度", Toast.LENGTH_SHORT).show();
+			Toast.makeText(act, "Error set lightness", Toast.LENGTH_SHORT).show();
 		}
 	}
 

@@ -53,7 +53,7 @@ public class VolumnView extends View {
 	void init(Context context) {
 		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		paint.setStyle(Style.STROKE);
-		bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ling);
+		bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_vm);
 	}
 
 	@Override
@@ -86,11 +86,11 @@ public class VolumnView extends View {
 		// 绘制文本
 		paint.setColor(Color.WHITE);
 		paint.setStrokeWidth(0);
-		paint.setTextSize(40);
-		float textWidth = paint.measureText("铃声"); // 测量字体宽度，我们需要根据字体的宽度设置在圆环中间
+		paint.setTextSize(24);
+		float textWidth = paint.measureText("Vol"); // 测量字体宽度，我们需要根据字体的宽度设置在圆环中间
 
-		canvas.drawText("铃声", cx - textWidth / 2, cx + bitmap.getHeight() / 2
-				+ 40, paint);
+		canvas.drawText("Vol", cx - textWidth / 2, cx + bitmap.getHeight() / 2
+				+ 24, paint);
 
 		// 绘制进度
 		paint.setStyle(Style.STROKE);
