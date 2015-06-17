@@ -15,8 +15,10 @@ android {
 
 repositories {
     maven { url 'https://dl.bintray.com/alexeydanilov/maven' }
+
 }
 
 dependencies {
-    compile('com.danikula:videocache:1.0.1')
+    compile 'com.danikula:videocache:1.0.1'
+    compile 'com.google.android.exoplayer:exoplayer:r1.3.3'
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,13 +42,19 @@ public class VideoCacheActivity extends Activity implements CacheListener,View.O
 
     private static final String LOG_TAG = "VideoActivity";
     private static final String VIDEO_CACHE_NAME = "X4gPz_110559_60765d771b815d6faadf2f978fb8fcfe_ori.mp4";
-    //private static final String VIDEO_URL = "https://dl.dropboxusercontent.com/u/15506779/persistent/proxycache/devbytes.mp4";
+    private static final String VIDEO_URL = "http://stream-1.vdomax.com:1935/vod/__definst__/mp4:youlove/youlove_xxx_7043.mp4/playlist.m3u8";
 
     //private static final String VIDEO_URL = "http://stream-1.vdomax.com:1935/vod/__definst__/mp4:110559/110559_720p.mp4/playlist.m3u8";
 
-    private static final String VIDEO_URL ="https://www.vdomax.com/clips/2015/05/X4gPz_110559_60765d771b815d6faadf2f978fb8fcfe_ori.mp4";
+
+    //private static final String VIDEO_URL ="https://www.vdomax.com/clips/2015/05/X4gPz_110559_60765d771b815d6faadf2f978fb8fcfe_ori.mp4";
 
     //private VideoView videoView;
+
+    //private String videoUrl = "https://www.vdomax.com/clips/2015/05/X4gPz_110559_60765d771b815d6faadf2f978fb8fcfe_ori.mp4";
+
+
+
     private ProgressBar progressBar;
     private HttpProxyCache proxyCache;
 
@@ -66,7 +73,6 @@ public class VideoCacheActivity extends Activity implements CacheListener,View.O
 
     private int playTime;
 
-    private String videoUrl = "https://www.vdomax.com/clips/2015/05/X4gPz_110559_60765d771b815d6faadf2f978fb8fcfe_ori.mp4";
 
     private static final int HIDE_TIME = 5000;
 
@@ -79,7 +85,7 @@ public class VideoCacheActivity extends Activity implements CacheListener,View.O
         super.onCreate(savedInstanceState);
 
         setUpUi();
-        playWithCache();
+        playVideo();
     }
 
     private void setUpUi() {
@@ -108,9 +114,57 @@ public class VideoCacheActivity extends Activity implements CacheListener,View.O
         mPlay.setOnClickListener(this);
         mSeekBar.setOnSeekBarChangeListener(mSeekBarChangeListener);
 
-        playVideo();
+        //playVideo();
 
     }
+
+    private void playVideo() {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideo.setVideoURI(Uri.parse(VIDEO_URL));
+            }
+        });
+
+        //mVideo.setVideoPath(VIDEO_URL);
+        mVideo.requestFocus();
+        mVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mVideo.setVideoWidth(mp.getVideoWidth());
+                mVideo.setVideoHeight(mp.getVideoHeight());
+
+                mVideo.start();
+                if (playTime != 0) {
+                    mVideo.seekTo(playTime);
+                }
+
+                mHandler.removeCallbacks(hideRunnable);
+                mHandler.postDelayed(hideRunnable, HIDE_TIME);
+                mDurationTime.setText(formatTime(mVideo.getDuration()));
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+
+                    @Override
+                    public void run() {
+                        mHandler.sendEmptyMessage(1);
+                    }
+                }, 0, 1000);
+            }
+        });
+        mVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mPlay.setImageResource(R.drawable.video_btn_down);
+                mPlayTime.setText("00:00");
+                mSeekBar.setProgress(0);
+            }
+        });
+        mVideo.setOnTouchListener(mTouchListener);
+    }
+
+
 
     private void playWithCache() {
         try {
@@ -266,43 +320,7 @@ public class VideoCacheActivity extends Activity implements CacheListener,View.O
     };
 
 
-    private void playVideo() {
-        mVideo.setVideoPath(videoUrl);
-        mVideo.requestFocus();
-        mVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mVideo.setVideoWidth(mp.getVideoWidth());
-                mVideo.setVideoHeight(mp.getVideoHeight());
 
-                mVideo.start();
-                if (playTime != 0) {
-                    mVideo.seekTo(playTime);
-                }
-
-                mHandler.removeCallbacks(hideRunnable);
-                mHandler.postDelayed(hideRunnable, HIDE_TIME);
-                mDurationTime.setText(formatTime(mVideo.getDuration()));
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-
-                    @Override
-                    public void run() {
-                        mHandler.sendEmptyMessage(1);
-                    }
-                }, 0, 1000);
-            }
-        });
-        mVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mPlay.setImageResource(R.drawable.video_btn_down);
-                mPlayTime.setText("00:00");
-                mSeekBar.setProgress(0);
-            }
-        });
-        mVideo.setOnTouchListener(mTouchListener);
-    }
 
     private Runnable hideRunnable = new Runnable() {
 
